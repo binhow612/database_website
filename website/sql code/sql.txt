@@ -1,0 +1,202 @@
+
+  
+CREATE TABLE Nurse
+(	Fname		VARCHAR(10)	NOT NULL,
+	Lname		VARCHAR(10)	NOT NULL,
+	Code			CHAR(9)		PRIMARY KEY,
+	DOB		DATE,
+ 	Gender CHAR(1), 
+	Address		VARCHAR(30),
+	Start_date DATE NOT NULL,
+ 	Specialty_name VARCHAR(30),
+ 	Year_of_degree INT,
+	Dept_code			INT		
+);
+
+CREATE TABLE Doctor
+(	Fname		VARCHAR(10)	NOT NULL,
+	Lname		VARCHAR(10)	NOT NULL,
+	Code			CHAR(9)		PRIMARY KEY,
+	DOB		DATE,
+ 	Gender CHAR(1), 
+	Address		VARCHAR(30),
+	Start_date DATE NOT NULL,
+ 	Specialty_name VARCHAR(30) NOT NULL,
+ 	Year_of_degree INT NOT NULL,
+	Dept_code			INT		
+);
+
+CREATE TABLE Department
+(	Code		INT			PRIMARY KEY,
+  	Title		VARCHAR(15) NOT NULL	UNIQUE,
+	Dean_code CHAR(9) NOT NULL,
+	CONSTRAINT 	fk_dept_dean FOREIGN KEY (Dean_code)
+				REFERENCES Doctor(Code) 
+				ON DELETE SET NULL	DEFERRABLE	
+);
+
+CREATE TABLE Nurse_phone_number
+(	Code		CHAR(9)			NOT NULL,
+	Phone_number	CHAR(10)	NOT NULL,
+	PRIMARY KEY	(Code, Phone_number),
+	CONSTRAINT	fk_nurse_phone	FOREIGN KEY (Code)
+				REFERENCES Nurse(Code)
+				ON DELETE CASCADE
+);
+
+CREATE TABLE Doctor_phone_number
+(	Code		CHAR(9)			NOT NULL,
+	Phone_number	CHAR(10)	NOT NULL,
+	PRIMARY KEY	(Code, Phone_number),
+	CONSTRAINT	fk_doc_phone	FOREIGN KEY (Code)
+				REFERENCES Doctor(Code)
+				ON DELETE CASCADE
+);
+
+ALTER TABLE Nurse
+ADD CONSTRAINT fk_nurse_dept FOREIGN KEY (Dept_code)
+				REFERENCES Department(Code)
+				ON DELETE SET NULL;
+
+ALTER TABLE Doctor
+ADD CONSTRAINT fk_doc_dept FOREIGN KEY (Dept_code)
+				REFERENCES Department(Code)
+				ON DELETE SET NULL;
+
+create table Inpatient_record
+(	Code CHAR(9) NOT NULL,
+	Record_no INT NOT NULL,
+    Admission_date DATE,
+    Discharge_date DATE,
+    Diagnosis VARCHAR(30),
+    Fee VARCHAR(15),
+    Room INT,
+    Nurse_Code CHAR(9),
+    PRIMARY KEY	(Code, Record_no),
+	CONSTRAINT	fk_inpat_rec_nurse	FOREIGN KEY (Nurse_code)
+				REFERENCES Nurse(Code)
+				ON DELETE CASCADE
+);
+
+create table Patient
+(	Code CHAR(9) primary key,
+	Patient_type CHAR(2),
+    Fname		VARCHAR(10)	NOT NULL,
+	Lname		VARCHAR(10)	NOT NULL,
+	DOB		DATE,
+ 	Gender CHAR(1), 
+	Address		VARCHAR(30),
+    Phone_number CHAR(10)
+);
+
+ALTER TABLE Inpatient_record
+ADD CONSTRAINT fk_inpat_pat FOREIGN KEY (Code)
+				REFERENCES Patient(Code)
+				ON DELETE cascade;
+
+create table Outpatient
+(	Code CHAR(9) primary key,
+	CONSTRAINT	outpat	FOREIGN KEY (Code)
+				REFERENCES Patient(Code)
+				ON DELETE CASCADE
+);
+
+create table Inpatient
+(	Code CHAR(9) primary key,
+	CONSTRAINT	inpat	FOREIGN KEY (Code)
+				REFERENCES Patient(Code)
+				ON DELETE CASCADE
+);
+
+CREATE TABLE Medication 
+(	Code VARCHAR(10) primary key,
+	Name VARCHAR(20) NOT NULL,
+    Price VARCHAR(15),
+    State CHAR(1),
+    Expiration_date DATE
+);
+
+create table Provider
+(	Number INT primary key,
+	Name VARCHAR(30),
+    Address VARCHAR(30),
+    Phone_number CHAR(10)
+);
+
+CREATE TABLE Med_effect
+(	Med_code		VARCHAR(10)			NOT NULL,
+	Effect	VARCHAR(30)	NOT NULL,
+	PRIMARY KEY	(Med_code, Effect),
+	CONSTRAINT	fk_med_eff	FOREIGN KEY (Med_code)
+				REFERENCES Medication(Code)
+				ON DELETE CASCADE
+);
+
+create table Is_provided_by
+(	Med_code		VARCHAR(10)		NOT NULL,
+	Pro_code			INT			NOT NULL,
+	Provide_date DATE,
+    Price VARCHAR(15),
+    Quantity INT,
+	PRIMARY KEY	(Med_code, Pro_code),
+	CONSTRAINT	med_provided	FOREIGN KEY (Med_code)
+				REFERENCES Medication(Code)
+				ON DELETE CASCADE,
+	CONSTRAINT	pro_provide	FOREIGN KEY (Pro_code)
+				REFERENCES Provider(Number)
+				ON DELETE CASCADE
+);
+
+create table Out_detail
+(	Doc_code CHAR(9) NOT NULL,
+	Outpat_code char(9) not null,
+    Treatment_no int not null,
+    Time timestamp,
+    Date date,
+    Next_date date,
+    Fee varchar(15),
+    Diagnosis varchar(30),
+    PRIMARY KEY	(Doc_code, Outpat_code, Treatment_no),
+	CONSTRAINT	fk_doc_out_detail	FOREIGN KEY (Doc_code)
+				REFERENCES Doctor(Code)
+				ON DELETE CASCADE,
+	CONSTRAINT	fk_outpat_out_detail	FOREIGN KEY (Outpat_code)
+				REFERENCES Patient(Code)
+				ON DELETE CASCADE
+);
+
+create table Contains
+(	Doc_code char(9) not null,
+	Outpat_code char(9) not null,
+    Treatment_no int not null,
+    Med_code varchar(10) not null,
+	PRIMARY KEY	(Doc_code, Outpat_code, Treatment_no, Med_code),
+	CONSTRAINT	fk_doc_contain	FOREIGN KEY (Doc_code, Outpat_code, Treatment_no)
+				REFERENCES Out_detail(Doc_code, Outpat_code, Treatment_no)
+				ON DELETE CASCADE,
+	CONSTRAINT	fk_med_contain	FOREIGN KEY (Med_code)
+				REFERENCES Medication(Code)
+				ON DELETE CASCADE
+);
+
+alter table Inpatient_record
+add index idx_reocrd_no(Record_no);
+
+ALTER table In_detail
+add constraint fk_record_in_detail	FOREIGN KEY (Record_no)
+				REFERENCES Inpatient_record(Record_no)
+				ON DELETE CASCADE;
+
+create table Is_contained_in
+(	Doc_code char(9) not null,
+	Inpat_code char(9) not null,
+    Treatment_no int not null,
+    Med_code varchar(10) not null,
+	PRIMARY KEY	(Doc_code, Inpat_code, Treatment_no, Med_code),
+	CONSTRAINT	fk_in_contain	FOREIGN KEY (Doc_code, Inpat_code, Treatment_no)
+				REFERENCES In_detail(Doc_code, Inpat_code, Treatment_no)
+				ON DELETE CASCADE,
+	CONSTRAINT	fk_med_in_contain	FOREIGN KEY (Med_code)
+				REFERENCES Medication(Code)
+				ON DELETE CASCADE
+);

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Doctor Data</title>
+</head>
+<body>
+    <header>
+        <h1>Fetch Doctor Data</h1>
+    </header>
+    <form id="doctorForm" action="#" method="post">
+        <label for="code">Enter Doctor Code:</label>
+        <input type="text" id="code" name="code" required>
+        <button type="submit">Submit</button>
+    </form>
+    <pre>
+        {% if messages %}
+            {% for message in messages %}
+                {% for key, value in message.items() %}
+                    {{ key }}: {{ value }}
+                    <br>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </pre>    
+    
+
+    <footer>
+        <p>&copy; 2023 Database Website</p>
+    </footer>
+</body>
+</html>

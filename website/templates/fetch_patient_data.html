@@ -14,10 +14,16 @@
         <input type="text" id="code" name="code" required>
         <button type="submit">Submit</button>
     </form>
-    <pre>{% for key, value in message.items() %}
-        {{ key }}: {{ value }}
-    {% endfor %}
+    <pre>
+        {% if message %}
+            {% for key, value in message.items() %}
+                {{ key }}: {{ value }}
+            {% endfor %}
+        {% else %}
+            {{ message }}
+        {% endif %}
     </pre>
+    
     <footer>
         <p>&copy; 2023 Database Website</p>
     </footer>

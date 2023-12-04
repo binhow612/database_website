@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Patient Data</title>
+</head>
+<body>
+    <header>
+        <h1>Fetch Patient Data</h1>
+    </header>
+    <form id="patientForm" action="#" method="post">
+        <label for="code">Enter Patient Code:</label>
+        <input type="text" id="code" name="code" required>
+        <button type="submit">Submit</button>
+    </form>
+    <pre>{% for key, value in message.items() %}
+        {{ key }}: {{ value }}
+    {% endfor %}
+    </pre>
+    <footer>
+        <p>&copy; 2023 Database Website</p>
+    </footer>
+</body>
+</html>

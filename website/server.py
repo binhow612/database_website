@@ -1,5 +1,6 @@
-from flask import Flask, flash, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 import login
+import fetch_data
 
 app = Flask(__name__)
 
@@ -68,15 +69,50 @@ def register_route(message=None):
 
 @app.route('/homepage')
 def homepage_route():
-    if request.method == "POST":
-        try:
-            
-            pass
-        except Exception as e:
-            return render_template("homepage.html")
-
-    # For GET requests, simply render the register page
     return render_template("homepage.html")
+
+@app.route('/fetch_data', methods = ['GET', 'POST'])
+def fetch_data_route():
+    if (request.method == 'POST'):
+        try:
+            data = request.form
+            code = data['code']
+            # Call the main function in fetch_data.py
+            result = fetch_data.fetch_data(code)
+            if result == "Error 1":
+                message = f"Error 1: No patient found with code {code}"
+            elif result == "Error 2":
+                message = f"Invalid patient type for patient with code {code}"
+            else:
+                message = {f'{key}':f'{value}' for key, value in result.items()}
+            return render_template("fetch_patient_data.html", message=message)
+
+        except Exception as e:
+            return render_template("fetch_patient_data.html", message=f'Error 3: {str(e)}')
+    # For GET requests, simply render the page
+    return render_template("fetch_patient_data.html", message='')
+
+@app.route('/add_data', methods = ['GET', 'POST'])
+def add_data_route():
+    if (request.method == 'POST'):
+        try:
+            data = request.form
+            code = data['code']
+            # Call the main function in fetch_data.py
+            result = fetch_data.fetch_data(code)
+            if result == "Error 1":
+                message = f"Error 1: No patient found with code {code}"
+            elif result == "Error 2":
+                message = f"Invalid patient type for patient with code {code}"
+            else:
+                message = {f'{key}':f'{value}' for key, value in result.items()}
+            return render_template("add_patient.html", message=message)
+
+        except Exception as e:
+            return render_template("add_patient.html", message=f'Error 3: {str(e)}')
+    # For GET requests, simply render the page
+    return render_template("add_patient.html", message='')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

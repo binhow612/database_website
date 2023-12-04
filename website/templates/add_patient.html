@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Patient</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Patient Information</h1>
+    <form id="patientForm" action="#" method="post">
+        <div>
+            <label for="code">Patient Code:</label>
+            <input type="text" id="code" name="code" required>
+        </div>
+
+        <div>
+            <label for="patientType">Patient Type:</label>
+            <select id="patientType" name="patientType" required>
+                <option value="IP">Inpatient</option>
+                <option value="OP">Outpatient</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required>
+        </div>
+
+        <div>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required>
+        </div>
+
+        <div>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+        </div>
+
+        <div id="inpatientFields" style="display:block;">
+            <!-- Inpatient-specific fields -->
+            <label for="docCode">Doctor Code:</label>
+            <input type="text" id="docCode" name="docCode">
+            
+            <label for="treatmentNo">Treatment Number:</label>
+            <input type="text" id="treatmentNo" name="treatmentNo">
+
+            <label for="recordNo">Record Number:</label>
+            <input type="text" id="recordNo" name="recordNo">
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate">
+
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate">
+
+            <label for="result">Result:</label>
+            <input type="text" id="result" name="result">
+        </div>
+
+        <div id="outpatientFields" style="display:none;">
+            <!-- Outpatient-specific fields -->
+            <label for="docCode">Doctor Code:</label>
+            <input type="text" id="docCode" name="docCode">
+
+            <label for="treatmentNo">Treatment Number:</label>
+            <input type="text" id="treatmentNo" name="treatmentNo">
+
+            <label for="time">Time:</label>
+            <input type="text" id="time" name="time">
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+
+            <label for="nextDate">Next Date:</label>
+            <input type="date" id="nextDate" name="nextDate">
+
+            <label for="fee">Fee:</label>
+            <input type="text" id="fee" name="fee">
+
+            <label for="diagnosis">Diagnosis:</label>
+            <input type="text" id="diagnosis" name="diagnosis">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('patientType').addEventListener('change', function() {
+            const inpatientFields = document.getElementById('inpatientFields');
+            const outpatientFields = document.getElementById('outpatientFields');
+
+            if (this.value === 'IP') {
+                inpatientFields.style.display = 'block';
+                outpatientFields.style.display = 'none';
+            } else if (this.value === 'OP') {
+                inpatientFields.style.display = 'none';
+                outpatientFields.style.display = 'block';
+            } else {
+                inpatientFields.style.display = 'none';
+                outpatientFields.style.display = 'none';
+            }
+        });
+    </script>
+    <text> {{message}} </text>
+</body>
+</html>

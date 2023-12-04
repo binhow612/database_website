@@ -11,11 +11,10 @@
     </header>
     <nav>
         <ul>
-            <li><a href="#">Button 1</a></li>
-            <li><a href="#">Button 2</a></li>
-            <li><a href="#">Button 3</a></li>
-            <li><a href="#">Button 4</a></li>
-            <li><a href="#">Button 5</a></li>
+            <li><a href="#" id="button1">Add_patient</a></li>
+            <li><a href="#" id="button2">Fetch_patient_data</a></li>
+            <li><a href="#" id="button3">Button 3</a></li>
+            <li><a href="#" id="button4">Button 4</a></li>
         </ul>
     </nav>
     <main>
@@ -25,6 +24,22 @@
         <p>&copy; 2023 Database Website</p>
     </footer>
 
-    <script src="main.js"></script>
+    <script>
+        document.getElementById('button1').addEventListener('click', function() {
+            window.location.href = 'add_data';
+        });
+
+        document.getElementById('button2').addEventListener('click', function() {
+            window.location.href = 'fetch_patient';
+        });
+
+        document.getElementById('button3').addEventListener('click', function() {
+            window.location.href = 'fetch_doctor';
+        });
+
+        document.getElementById('button4').addEventListener('click', function() {
+            window.location.href = 'url_for_button_4';
+        });
+    </script>
 </body>
-</html>  
+</html>

@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Database Website</title>
     <!-- Linking CSS file using url_for -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Welcome to our Database Website</h1>
+      <h1>Welcome to our Database Website</h1>
     </header>
     <nav>
-        <ul>
-            <li><a href="#" id="button1">Add New Patient</a></li>
-            <li><a href="#" id="button2">Fetch Patient Data</a></li>
-            <li><a href="#" id="button3">Fetch Doctor's Patients</a></li>
-            <li><a href="#" id="button4">Button 4</a></li>
-        </ul>
+      <ul>
+        <li><a href="#" id="button1">Add New Patient</a></li>
+        <li><a href="#" id="button2">Fetch Patient Data</a></li>
+        <li><a href="#" id="button3">Fetch Doctor's Patients</a></li>
+        <li><a href="#" id="button4">Button 4</a></li>
+        <li><a href="#" id="button5">Logout</a></li>
+      </ul>
     </nav>
     <main>
-        <p>This is the website of our team that will redirect you to our database.</p>
+      <p>
+        This is the website of our team that will redirect you to our database.
+      </p>
     </main>
     <footer>
-        <p>&copy; 2023 Database Website</p>
+      <p>&copy; 2023 Database Website</p>
     </footer>
 
     <script>
-        document.getElementById('button1').addEventListener('click', function() {
-            window.location.href = 'add_data';
-        });
+      document.getElementById("button1").addEventListener("click", function () {
+        window.location.href = "add_data";
+      });
 
-        document.getElementById('button2').addEventListener('click', function() {
-            window.location.href = 'fetch_patient';
-        });
+      document.getElementById("button2").addEventListener("click", function () {
+        window.location.href = "fetch_patient";
+      });
 
-        document.getElementById('button3').addEventListener('click', function() {
-            window.location.href = 'fetch_doctor';
-        });
+      document.getElementById("button3").addEventListener("click", function () {
+        window.location.href = "fetch_doctor";
+      });
 
-        document.getElementById('button4').addEventListener('click', function() {
-            window.location.href = 'url_for_button_4';
-        });
+      document.getElementById("button4").addEventListener("click", function () {
+        window.location.href = "url_for_button_4";
+      });
+
+      document.getElementById("button5").addEventListener("click", function () {
+        window.location.href = "login";
+      });
     </script>
-</body>
+  </body>
 </html>

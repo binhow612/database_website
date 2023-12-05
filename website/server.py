@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-import login
 import fetch_data
 import add_patient
+import mysql.connector
 
 app = Flask(__name__)
 

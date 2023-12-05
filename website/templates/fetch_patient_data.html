@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fetch Patient Data</title>
     <!-- Linking CSS file using url_for -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Fetch Patient Data</h1>
+      <h1>Fetch Patient Data</h1>
     </header>
     <form id="patientForm" action="#" method="post">
-        <label for="code">Enter Patient Code:</label>
-        <input type="text" id="code" name="code" required>
-        <button type="submit">Submit</button>
+      <label for="code">Enter Patient Code:</label>
+      <input type="text" id="code" name="code" required />
+      <button type="submit">Submit</button>
     </form>
-    <pre>
-        {% if message %}
-            {% for key, value in message.items() %}
-                {{ key }}: {{ value }}
-            {% endfor %}
-        {% else %}
-            {{ message }}
-        {% endif %}
-    </pre>
-    
+    <!-- <pre> -->
+    {% if message %}
+    <table style="margin: 0px auto">
+      <tr>
+        <!-- <th>Code</th>-->
+        <th>Pat type</th>
+        <th>Fname</th>
+        <th>Lname</th>
+        <!-- <th>DOB</th> -->
+        <!-- <th>Gender</th> -->
+        <!-- <th>Address</th> -->
+        <th>Phone num</th>
+        <th>Doc Code</th>
+        <th>Outpat Code</th>
+        <th>Treatment no</th>
+        <th>Time</th>
+        <th>Date</th>
+        <th>Next Date</th>
+        <th>Fee</th>
+        <th>Diagnosis</th>
+      </tr>
+
+      <tr>
+        {% for key, value in message.items() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+      </tr>
+    </table>
+    {% else %} {{ message }} {% endif %}
+    <!-- </pre> -->
+
     <footer>
-        <p>&copy; 2023 Database Website</p>
+      <p>&copy; 2023 Database Website</p>
     </footer>
-</body>
+  </body>
 </html>

@@ -4,6 +4,8 @@ import add_patient
 import mysql.connector
 
 app = Flask(__name__)
+username = None
+password = None
 
 @app.route('/')
 def index():
@@ -14,6 +16,8 @@ def login_route(message=None):
     if request.method == "POST":
         try:
             data = request.form
+            global username
+            global password
             username = data['username']
             password = data['password']
             db = mysql.connector.connect(user=username, password=password, host="localhost", database="an_hospital")
@@ -28,7 +32,6 @@ def login_route(message=None):
 
             # Check if a matching user was found
             if user_data:
-                # return redirect(url_for('homepage_route'), username = username, password = password)
                 return redirect(url_for('homepage_route'))
 
         except Exception as e:
@@ -48,7 +51,7 @@ def fetch_patient_route():
             data = request.form
             code = data['code']
             # Call the main function in fetch_data.py
-            result = fetch_data.fetch_data(code, type="P")
+            result = fetch_data.fetch_data(username, password ,code, type="P")
             if result == "Error 1":
                 message = f"Error 1: No patient found with code {code}"
             elif result == "Error 2":

@@ -1,8 +1,8 @@
 import mysql.connector
 
-def fetch_data(code, type=None):
+def fetch_data(username, password, code, type=None):
     # Establish the connection
-    db = mysql.connector.connect(user="root", password="1234", host="localhost", database="hospital")
+    db = mysql.connector.connect(user=username, password= password, host="localhost", database="an_hospital")
 
     # Create a cursor object to interact with the database
     cursor = db.cursor(dictionary=True)
@@ -10,7 +10,7 @@ def fetch_data(code, type=None):
     try:
         if type == "P":
             # Fetch patient information from the 'patient' table
-            cursor.execute("SELECT * FROM patient WHERE Code = %s", (code,))
+            cursor.execute("SELECT patient_type , Fname, Lname, phone_number FROM patient WHERE Code = %s", (code,))
 
             patient_info = cursor.fetchone()
             

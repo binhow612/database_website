@@ -123,9 +123,8 @@ def add_data_route():
             
             message = result
             return render_template("add_patient.html", message=message)
-
         except Exception as e:
-            return render_template("add_patient.html", message=f'Error 2: {str(e)}')
+            return render_template("add_patient.html", message=f"Error 2: {e}")
     # For GET requests, simply render the page
     return render_template("add_patient.html", message='')
 

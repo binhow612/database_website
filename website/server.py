@@ -11,62 +11,31 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_route(message=None):
-    message = request.args.get('message', None)
     if request.method == "POST":
         try:
             data = request.form
             username = data['username']
             password = data['password']
-            option = "L"
+            db = mysql.connector.connect(user=username, password=password, host="localhost", database="an_hospital")
 
-            # Call the main function in login.py with option "L"
-            result = login.main(option, username, password)
+            cursor = db.cursor()
 
-            # Check the result and set an appropriate message
-            if result == "Successful":
-                message = f"Login Successful for {username}!"
-                return redirect(url_for('homepage_route', message=message))
-            
-            elif result == "Error":
-                message = "Unknown error occurred."
+            # Execute a SELECT query to fetch the user's data
+            query = "SELECT * FROM doctor"
+            cursor.execute(query)
+            # Fetch the first row (if any)
+            user_data = cursor.fetchall()
 
-            else:
-                message = "Invalid username or password."
+            # Check if a matching user was found
+            if user_data:
+                # return redirect(url_for('homepage_route'), username = username, password = password)
+                return redirect(url_for('homepage_route'))
 
-            return render_template("login.html", message=message)
         except Exception as e:
-            return render_template("login.html", message=f'Error: {str(e)}')
-
-    # For GET requests, simply render the login page
+            # return render_template("login.html", message=f'Error: {str(e)}')
+            return render_template("login.html", message='Invalid username or password.')
     return render_template("login.html", message='')
-
-@app.route('/register', methods=['GET', 'POST'])
-def register_route(message=None):
-    if request.method == "POST":
-        try:
-            data = request.form
-            username = data['newUsername']
-            email = data['newEmail']
-            password = data['newPassword']
-            option = "R"
-
-            # Call the main function in login.py with option "R"
-            result = login.main(option, username, password, email)
-
-            # Check the result and set an appropriate message
-            if result == "Successful":
-                message = f"Register Successful! Please log in to your account."
-                return redirect(url_for('login_route', message=message))
-      
-            else:
-                message = result
-
-            return render_template("register.html", message=message)
-        except Exception as e:
-            return render_template("register.html", message=f'Error 2: {str(e)}')
-
-    # For GET requests, simply render the register page
-    return render_template("register.html", message='')
+    
 
 @app.route('/homepage')
 def homepage_route():
@@ -93,6 +62,7 @@ def fetch_patient_route():
     # For GET requests, simply render the page
     return render_template("fetch_patient_data.html", message='')
 
+
 @app.route('/fetch_doctor', methods = ['GET', 'POST'])
 def fetch_doctor_route():
     if (request.method == 'POST'):
@@ -112,6 +82,7 @@ def fetch_doctor_route():
             return render_template("fetch_doctor_data.html", message=f'Error 1: {str(e)}')
     # For GET requests, simply render the page
     return render_template("fetch_doctor_data.html", message='')
+
 
 @app.route('/add_data', methods = ['GET', 'POST'])
 def add_data_route():

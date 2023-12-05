@@ -57,7 +57,8 @@ a:hover {
 }
 
 button {
-    padding: 10px 15px;
+    text-align: center;
+    padding: 10px 165px;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -95,4 +96,47 @@ nav a {
 
 nav a:hover {
     background-color: #45a049;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 5px 100px; /* Adjust as needed */
+    background-color: white;
+    border-color: black;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box; /* Add this line */
+}
+
+
+select {
+    margin-bottom: 10px;
+    padding: 5px 142px;
+    background-color: white;
+    border-color: black;
+    border-radius: 5px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    margin-top: 30px; /* Adjust the margin as needed */
+}
+
+table {
+    width: 100%;
+}
+
+form {
+    border: 1px solid #ddd; /* Border color */
+    padding: 20px;
+    border-radius: 10px;
+    border-width: 10px;
 }

@@ -18,7 +18,7 @@
 </head>
 <body>
     <h1>Add Patient Information</h1>
-    <form id="patientForm" action="#" method="post">
+    <form id="patientForm" action="/add_data" method="post">
         <div>
             <label for="code">Patient Code:</label>
             <input type="text" id="code" name="code" required>
@@ -43,6 +43,21 @@
         </div>
 
         <div>
+            <label for="DOB">Date of Birth:</label>
+            <input type="date" id="DOB" name="DOB" required>
+        </div>
+
+        <div>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" required>
+        </div>
+
+        <div>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+
+        <div>
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" id="phoneNumber" name="phoneNumber" required>
         </div>
@@ -53,7 +68,7 @@
             <input type="text" id="docCode" name="docCode">
             
             <label for="treatmentNo">Treatment Number:</label>
-            <input type="text" id="treatmentNo" name="treatmentNo">
+            <input type="number" id="treatmentNo" name="treatmentNo">
 
             <label for="recordNo">Record Number:</label>
             <input type="text" id="recordNo" name="recordNo">
@@ -74,7 +89,7 @@
             <input type="text" id="docCode" name="docCode">
 
             <label for="treatmentNo">Treatment Number:</label>
-            <input type="text" id="treatmentNo" name="treatmentNo">
+            <input type="number" id="treatmentNo" name="treatmentNo">
 
             <label for="time">Time:</label>
             <input type="text" id="time" name="time">

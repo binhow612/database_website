@@ -96,7 +96,7 @@ def add_data_route():
         try:
             patient_data = request.form
             # Call the main function in add_patient.py
-            result = add_patient.add_patient(patient_data)
+            result = add_patient.add_patient_2(username, password, patient_data)
             
             message = result
             return render_template("add_patient.html", message=message)

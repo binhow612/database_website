@@ -1,8 +1,8 @@
 import mysql.connector
 
-def add_patient(patient_data):
+def add_patient(username, password, patient_data):
     # Establish the connection
-    db = mysql.connector.connect(user="root", password="1234", host="localhost", database="hospital")
+    db = mysql.connector.connect(user=username, password=password, host="localhost", database="hospital")
 
     # Create a cursor object to interact with the database
     cursor = db.cursor()
@@ -43,3 +43,29 @@ def add_patient(patient_data):
         # Close the connection
         cursor.close()
         db.close()
+
+def add_patient_2(username, password, patient_data):
+        # Establish the connection
+    db = mysql.connector.connect(user=username, password=password, host="localhost", database="hospital")
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor()
+
+    try:
+        # Insert patient information into the 'patient' table
+        cursor.execute(
+            "insert into patient (patient_type, fname, lname, dob, gender, address, phone_number) values (%s, %s, %s, %s, %s, %s, %s)",
+            (patient_data['patientType'], patient_data['fname'],
+             patient_data['lname'], patient_data['DOB'], patient_data['gender'], patient_data['address'],
+             patient_data['phoneNumber'])
+        )
+        db.commit()
+        return "Added successfully!"
+    except Exception as e:
+        return f"Error 1: {e}"
+    
+    finally:
+        # Close the connection
+        # cursor.close()
+        # db.close()
+        pass

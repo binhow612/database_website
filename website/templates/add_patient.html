@@ -1,65 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Patient</title>
 
     <!-- Linking CSS file using url_for -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Add Patient Information</h1>
+      <h1>Add Patient Information</h1>
     </header>
     <div class="center">
-        <form id="patientForm" action="#" method="post">
-            <table>
-                <div>
+      <form id="patientForm" action="#" method="post">
+        <table>
+          <!-- <div>
                     <label for="code">Patient Code:</label>
                     <input type="text" id="code" name="code" required>
-                </div>
+                </div> -->
 
-                <div>
-                    <label for="patientType">Patient Type:</label>
-                    <select id="patientType" name="patientType" required>
-                        <option value="IP">Inpatient</option>
-                        <option value="OP">Outpatient</option>
-                    </select>
-                </div>
+          <div>
+            <label for="patientType">Patient Type:</label>
+            <select id="patientType" name="patientType" required>
+              <option value="" disabled selected hidden>
+                Select type of patient
+              </option>
+              <option value="IP">Inpatient</option>
+              <option value="OP">Outpatient</option>
+            </select>
+          </div>
 
-                <div>
-                    <label for="fname">First Name:</label>
-                    <input type="text" id="fname" name="fname" required>
-                </div>
+          <div>
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required />
+          </div>
 
-                <div>
-                    <label for="lname">Last Name:</label>
-                    <input type="text" id="lname" name="lname" required>
-                </div>
+          <div>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required />
+          </div>
 
-                <div>
-                    <label for="DOB">Date of Birth:</label>
-                    <input type="date" id="DOB" name="DOB" required>
-                </div>
+          <div>
+            <label for="DOB">Date of Birth:</label>
+            <input type="date" id="DOB" name="DOB" required />
+          </div>
 
-                <div>
-                    <label for="gender">Gender:</label>
-                    <input type="text" id="gender" name="gender" required>
-                </div>
+          <div>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" required />
+          </div>
 
-                <div>
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
+          <div>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required />
+          </div>
 
-                <div>
-                    <label for="phoneNumber">Phone Number:</label>
-                    <input type="text" id="phoneNumber" name="phoneNumber" required>
-                </div>
+          <div>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required />
+          </div>
 
-                <div id="inpatientFields" style="display:block;">
-                    <!-- Inpatient-specific fields -->
+          <!-- <div id="inpatientFields" style="display:block;">
+                    Inpatient-specific fields
                     <label for="docCode">Doctor Code:</label>
                     <input type="text" id="docCode" name="docCode">
                     
@@ -77,10 +84,10 @@
 
                     <label for="result">Result:</label>
                     <input type="text" id="result" name="result">
-                </div>
+                </div> -->
 
-                <div id="outpatientFields" style="display:none;">
-                    <!-- Outpatient-specific fields -->
+          <!-- <div id="outpatientFields" style="display:none;">
+
                     <label for="docCode">Doctor Code:</label>
                     <input type="text" id="docCode" name="docCode">
 
@@ -101,30 +108,44 @@
 
                     <label for="diagnosis">Diagnosis:</label>
                     <input type="text" id="diagnosis" name="diagnosis">
-                </div>
+                </div> -->
 
-                <button type="submit">Submit</button>
-            </table>
-        </form>
+          <button type="submit">Submit</button>
+        </table>
+      </form>
     </div>
 
-    <script>
-        document.getElementById('patientType').addEventListener('change', function() {
-            const inpatientFields = document.getElementById('inpatientFields');
-            const outpatientFields = document.getElementById('outpatientFields');
+    <!-- <script>
+      document
+        .getElementById("patientType")
+        .addEventListener("change", function () {
+          const inpatientFields = document.getElementById("inpatientFields");
+          const outpatientFields = document.getElementById("outpatientFields");
 
-            if (this.value === 'IP') {
-                inpatientFields.style.display = 'block';
-                outpatientFields.style.display = 'none';
-            } else if (this.value === 'OP') {
-                inpatientFields.style.display = 'none';
-                outpatientFields.style.display = 'block';
-            } else {
-                inpatientFields.style.display = 'none';
-                outpatientFields.style.display = 'none';
-            }
+          if (this.value === "IP") {
+            inpatientFields.style.display = "block";
+            outpatientFields.style.display = "none";
+          } else if (this.value === "OP") {
+            inpatientFields.style.display = "none";
+            outpatientFields.style.display = "block";
+          } else {
+            inpatientFields.style.display = "none";
+            outpatientFields.style.display = "none";
+          }
         });
-    </script>
+    </script> -->
+
+    <!-- <script>
+      //   var message = "{{ message }}";
+      var myString = "{{ myString }}";
+      document
+        .getElementById("patientForm")
+        .addEventListener("submit", function (e) {
+          //   e.preventDefault();
+          //   alert("Added patient successfully!");
+          alert(myString);
+        });
+    </script> -->
     <text> {{message}} </text>
-</body>
+  </body>
 </html>

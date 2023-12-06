@@ -16,9 +16,9 @@
       <h1>Fetch Patient Data</h1>
     </header>
     <nav>
-        <ul>
-          <li><a href="#" id="button1">Home</a></li>
-        </ul>
+      <ul>
+        <li><a href="#" id="button1">Home</a></li>
+      </ul>
     </nav>
     <form id="patientForm" action="#" method="post">
       <select id="dropdown" name="patient_type" required>
@@ -39,6 +39,7 @@
       <tr>
         <th>Name</th>
         <th>Phone num</th>
+        <th>Address</th>
         <th>Doc Code</th>
         <th>Exami_no</th>
         <th>Exami_series_no</th>
@@ -53,6 +54,7 @@
       <tr>
         <td>{{ value['fname'] }} {{ value['lname'] }}</td>
         <td>{{ value['phone_number'] }}</td>
+        <td>{{ value['address'] }}</td>
         <td>{{ value['doc_code'] }}</td>
         <td>{{ value['exami_no'] }}</td>
         <td>{{ value['exami_series_no'] }}</td>
@@ -67,25 +69,31 @@
     {% else %} {% if (message[0]['patient_type'] == 'IP')%}
     <table style="margin: 0px auto">
       <tr>
-        <th>Name</th>
-        <th>Phone num</th>
-        <th>Doc Code</th>
-        <th>Treatment_no</th>
-        <th>Record_no</th>
-        <th>Start_date</th>
-        <th>End_date</th>
+        <th>Patient name</th>
+        <th>Date of birth</th>
+        <th>Phone number</th>
+        <th>Address</th>
+        <th>Doctor code</th>
+        <th>Visit</th>
+        <th>Admission date</th>
+        <th>Discharge date</th>
+        <th>Diagnosis</th>
+        <th>Treat number</th>
         <th>Result</th>
       </tr>
 
       {% for value in message %}
       <tr>
         <td>{{ value['fname'] }} {{ value['lname'] }}</td>
+        <td>{{ value['dob'] }}</td>
         <td>{{ value['phone_number'] }}</td>
+        <td>{{ value['address'] }}</td>
         <td>{{ value['doc_code'] }}</td>
-        <td>{{ value['treatment_no'] }}</td>
         <td>{{ value['record_no'] }}</td>
-        <td>{{ value['start_date'] }}</td>
-        <td>{{ value['end_date'] }}</td>
+        <td>{{ value['admission_date'] }}</td>
+        <td>{{ value['discharge_date'] }}</td>
+        <td>{{ value['diagnosis'] }}</td>
+        <td>{{ value['treatment_no'] }}</td>
         <td>{{ value['result'] }}</td>
       </tr>
       {% endfor %}
@@ -96,9 +104,9 @@
       <p>&copy; 2023 Database Website</p>
     </footer>
     <script>
-        document.getElementById("button1").addEventListener("click", function () {
-          window.location.href = "homepage";
-        });
+      document.getElementById("button1").addEventListener("click", function () {
+        window.location.href = "homepage";
+      });
     </script>
   </body>
 </html>

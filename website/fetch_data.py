@@ -88,7 +88,7 @@ def fetch_patient_data(username, password, code, type):
         if (type=="OP"):
             cursor.execute("SELECT * FROM patient join out_detail on patient.p_code = out_detail.outpat_code where p_code = %s", (code,))
         elif (type=="IP"):
-            cursor.execute("SELECT * FROM patient join in_detail on patient.p_code = in_detail.inpat_code where p_code = %s", (code,))
+            cursor.execute("select * from patient join in_detail on patient.p_code = in_detail.inpat_code join inpatient_record on patient.p_code = inpatient_record.in_code where p_code = %s", (code,))
         else:
             return "Error 2"
         patient_info = cursor.fetchall()

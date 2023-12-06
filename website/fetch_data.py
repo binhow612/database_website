@@ -100,3 +100,36 @@ def fetch_patient_data(username, password, code, type):
         # Close the connection
         cursor.close()
         db.close()
+
+def fetch_doctor_data(username, password, code):
+    # Establish the connection
+    db = mysql.connector.connect(user=username, password= password, host="localhost", database="hospital")
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor(dictionary=True)
+    try:
+
+        sql_query = """
+                SELECT *
+                FROM patient p
+                JOIN (
+                    SELECT DISTINCT outpat_code AS Code
+                    FROM out_detail
+                    WHERE doc_code = %s
+                    UNION
+                    SELECT DISTINCT inpat_code AS Code
+                    FROM in_detail
+                    WHERE doc_code = %s
+                ) t ON p.p_code = t.Code;
+            """
+        cursor.execute(sql_query, (code, code,))
+        doctor_info = cursor.fetchall()
+        if not doctor_info:
+            return "Error 1"
+        return doctor_info
+
+    finally:
+        # Close the connection
+        cursor.close()
+        db.close()
+        pass

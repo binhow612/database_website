@@ -66,6 +66,6 @@ def add_patient_2(username, password, patient_data):
     
     finally:
         # Close the connection
-        # cursor.close()
-        # db.close()
+        cursor.close()
+        db.close()
         pass

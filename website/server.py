@@ -68,7 +68,6 @@ def fetch_patient_route():
     # For GET requests, simply render the page
     return render_template("fetch_patient_data.html", message='')
 
-
 @app.route('/fetch_doctor', methods = ['GET', 'POST'])
 def fetch_doctor_route():
     if (request.method == 'POST'):
@@ -76,7 +75,8 @@ def fetch_doctor_route():
             data = request.form
             code = data['code']
             # Call the main function in fetch_data.py
-            result = fetch_data.fetch_data(code, type="D")
+            # result = fetch_data.fetch_data(code, type="D")
+            result = fetch_data.fetch_doctor_data(username, password ,code)
             if not result:
                 message = f"There is no patients treated or examined by this doctor!"
             else:
@@ -88,7 +88,6 @@ def fetch_doctor_route():
             return render_template("fetch_doctor_data.html", message=f'Error 1: {str(e)}')
     # For GET requests, simply render the page
     return render_template("fetch_doctor_data.html", message='')
-
 
 @app.route('/add_data', methods = ['GET', 'POST'])
 def add_data_route():
@@ -104,7 +103,6 @@ def add_data_route():
             return render_template("add_patient.html", message=f"Error 2: {e}")
     # For GET requests, simply render the page
     return render_template("add_patient.html", message='')
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

@@ -15,6 +15,11 @@
     <header>
       <h1>Fetch Patient Data</h1>
     </header>
+    <nav>
+        <ul>
+          <li><a href="#" id="button1">Home</a></li>
+        </ul>
+    </nav>
     <form id="patientForm" action="#" method="post">
       <select id="dropdown" name="patient_type" required>
         <option value="" disabled selected hidden>
@@ -90,5 +95,10 @@
     <footer>
       <p>&copy; 2023 Database Website</p>
     </footer>
+    <script>
+        document.getElementById("button1").addEventListener("click", function () {
+          window.location.href = "homepage";
+        });
+    </script>
   </body>
 </html>

@@ -104,5 +104,6 @@ def add_data_route():
     # For GET requests, simply render the page
     return render_template("add_patient.html", message='')
 
+
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

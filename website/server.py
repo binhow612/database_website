@@ -106,5 +106,23 @@ def add_data_route():
     return render_template("add_patient.html", message='')
 
 
+@app.route('/fetch_payment', methods = ['GET', 'POST'])
+def fetch_payment_route():
+    if (request.method == 'POST'):
+        try:
+            code = request.form['code']
+            # Call the main function in add_patient.py
+            result = fetch_payment.fetch_payment(username, password, code)
+                        
+            if not result:
+                return render_template("fetch_payment.html", message=f"There is no payment information for the patient {code}!")
+            
+            return render_template("fetch_payment.html", message=result)
+        except Exception as e:
+            return render_template("fetch_payment.html", message=f"Error 2: {e}")
+    # For GET requests, simply render the page
+    return render_template("fetch_payment.html", message='')
+    
+
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

@@ -11,6 +11,11 @@
     <header>
         <h1>Fetch Doctor Data</h1>
     </header>
+    <nav>
+        <ul>
+          <li><a href="#" id="button1">Home</a></li>
+        </ul>
+    </nav>
     <form id="doctorForm" action="#" method="post">
         <label for="code">Enter Doctor Code:</label>
         <input type="text" id="code" name="code" required>
@@ -33,5 +38,10 @@
     <footer>
         <p>&copy; 2023 Database Website</p>
     </footer>
+    <script>
+        document.getElementById("button1").addEventListener("click", function () {
+          window.location.href = "homepage";
+        });
+    </script>
 </body>
 </html>

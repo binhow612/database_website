@@ -133,3 +133,33 @@ def fetch_doctor_data(username, password, code):
         cursor.close()
         db.close()
         pass
+
+def fetch_doctor_data2(username, password, code):
+    # Establish the connection
+    db = mysql.connector.connect(user=username, password= password, host="localhost", database="hospital")
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor(dictionary=True)
+    try:
+        sql_query_in = """select * from patient 
+                        join in_detail on patient.p_code = in_detail.inpat_code 
+                        join inpatient_record on patient.p_code = inpatient_record.in_code
+                        where doc_code= %s"""
+
+        sql_query_out = """select * from patient 
+                        join out_detail on patient.p_code = out_detail.outpat_code 
+                        where doc_code= %s"""
+
+        cursor.execute(sql_query_in, (code,))
+        inpat_info = cursor.fetchall()
+
+        cursor.execute(sql_query_out, (code,))
+        outpat_info = cursor.fetchall()
+
+        return inpat_info, outpat_info
+
+    finally:
+        # Close the connection
+        cursor.close()
+        db.close()
+        pass

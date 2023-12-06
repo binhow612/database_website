@@ -40,7 +40,6 @@ def login_route(message=None):
             return render_template("login.html", message='Invalid username or password.')
     return render_template("login.html", message='')
     
-
 @app.route('/homepage')
 def homepage_route():
     return render_template("homepage.html")
@@ -78,18 +77,22 @@ def fetch_doctor_route():
             code = data['code']
             # Call the main function in fetch_data.py
             # result = fetch_data.fetch_data(code, type="D")
-            result = fetch_data.fetch_doctor_data(username, password ,code)
-            if not result:
-                message = f"There is no patients treated or examined by this doctor!"
+            # result = fetch_data.fetch_doctor_data(username, password ,code)
+            message1 = ''
+            message2 = ''
+            result1, result2 = fetch_data.fetch_doctor_data2(username, password ,code)
+            if not result1 and not result2:
+                message1 = f"There is no patients treated or examined by this doctor!"
             else:
-                message = result
+                message1 = result1
+                message2 = result2
                 
-            return render_template("fetch_doctor_data.html", message=message)
+            return render_template("fetch_doctor_data.html", message1=message1, message2=message2)
 
         except Exception as e:
-            return render_template("fetch_doctor_data.html", message=f'Error 1: {str(e)}')
+            return render_template("fetch_doctor_data.html", message1=f'Error 1: {str(e)}', message2='')
     # For GET requests, simply render the page
-    return render_template("fetch_doctor_data.html", message='')
+    return render_template("fetch_doctor_data.html", message1='', message2 = '')
 
 
 @app.route('/add_data', methods = ['GET', 'POST'])

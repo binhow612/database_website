@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import fetch_data
 import add_patient
+import fetch_payment
 import mysql.connector
 
 app = Flask(__name__)
@@ -68,6 +69,7 @@ def fetch_patient_route():
     # For GET requests, simply render the page
     return render_template("fetch_patient_data.html", message='')
 
+
 @app.route('/fetch_doctor', methods = ['GET', 'POST'])
 def fetch_doctor_route():
     if (request.method == 'POST'):
@@ -89,6 +91,7 @@ def fetch_doctor_route():
     # For GET requests, simply render the page
     return render_template("fetch_doctor_data.html", message='')
 
+
 @app.route('/add_data', methods = ['GET', 'POST'])
 def add_data_route():
     if (request.method == 'POST'):
@@ -104,6 +107,24 @@ def add_data_route():
     # For GET requests, simply render the page
     return render_template("add_patient.html", message='')
 
+
+@app.route('/fetch_payment', methods = ['GET', 'POST'])
+def fetch_payment_route():
+    if (request.method == 'POST'):
+        try:
+            code = request.form['code']
+            # Call the main function in add_patient.py
+            result = fetch_payment.fetch_payment(username, password, code)
+                        
+            if not result:
+                return render_template("fetch_payment.html", message=f"There is no payment information for the patient {code}!")
+            
+            return render_template("fetch_payment.html", message=result)
+        except Exception as e:
+            return render_template("fetch_payment.html", message=f"Error 2: {e}")
+    # For GET requests, simply render the page
+    return render_template("fetch_payment.html", message='')
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

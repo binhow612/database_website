@@ -16,6 +16,11 @@
     <header>
       <h1>Add Patient Information</h1>
     </header>
+    <nav>
+        <ul>
+          <li><a href="#" id="button1">Home</a></li>
+        </ul>
+    </nav>
     <div class="center">
       <form id="patientForm" action="#" method="post">
         <table>
@@ -122,30 +127,18 @@
           const inpatientFields = document.getElementById("inpatientFields");
           const outpatientFields = document.getElementById("outpatientFields");
 
-          if (this.value === "IP") {
-            inpatientFields.style.display = "block";
-            outpatientFields.style.display = "none";
-          } else if (this.value === "OP") {
-            inpatientFields.style.display = "none";
-            outpatientFields.style.display = "block";
-          } else {
-            inpatientFields.style.display = "none";
-            outpatientFields.style.display = "none";
-          }
+            if (this.value === 'IP') {
+                inpatientFields.style.display = 'block';
+                outpatientFields.style.display = 'none';
+            } else if (this.value === 'OP') {
+                inpatientFields.style.display = 'none';
+                outpatientFields.style.display = 'block';
+            } else {
+                inpatientFields.style.display = 'none';
+                outpatientFields.style.display = 'none';
+            }
         });
-    </script> -->
-
-    <!-- <script>
-      //   var message = "{{ message }}";
-      var myString = "{{ myString }}";
-      document
-        .getElementById("patientForm")
-        .addEventListener("submit", function (e) {
-          //   e.preventDefault();
-          //   alert("Added patient successfully!");
-          alert(myString);
-        });
-    </script> -->
+    </script>
     <text> {{message}} </text>
   </body>
 </html>

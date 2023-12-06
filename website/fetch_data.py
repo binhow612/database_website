@@ -2,7 +2,7 @@ import mysql.connector
 
 def fetch_data(username, password, code, type=None):
     # Establish the connection
-    db = mysql.connector.connect(user=username, password= password, host="localhost", database="an_hospital")
+    db = mysql.connector.connect(user=username, password= password, host="localhost", database="hospital")
 
     # Create a cursor object to interact with the database
     cursor = db.cursor(dictionary=True)
@@ -10,7 +10,7 @@ def fetch_data(username, password, code, type=None):
     try:
         if type == "P":
             # Fetch patient information from the 'patient' table
-            cursor.execute("SELECT patient_type , Fname, Lname, phone_number FROM patient WHERE Code = %s", (code,))
+            cursor.execute("SELECT patient_type , Fname, Lname, phone_number FROM patient WHERE p_code = %s", (code,))
 
             patient_info = cursor.fetchone()
             
@@ -73,6 +73,29 @@ def fetch_data(username, password, code, type=None):
             message = '\n'.join(messages)
             return message
         
+    finally:
+        # Close the connection
+        cursor.close()
+        db.close()
+
+def fetch_patient_data(username, password, code, type):
+    # Establish the connection
+    db = mysql.connector.connect(user=username, password= password, host="localhost", database="hospital")
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor(dictionary=True)
+    try:
+        if (type=="OP"):
+            cursor.execute("SELECT * FROM patient join out_detail on patient.p_code = out_detail.outpat_code where p_code = %s", (code,))
+        elif (type=="IP"):
+            cursor.execute("SELECT * FROM patient join in_detail on patient.p_code = in_detail.inpat_code where p_code = %s", (code,))
+        else:
+            return "Error 2"
+        patient_info = cursor.fetchall()
+        if not patient_info:
+            return "Error 1"
+        return patient_info
+
     finally:
         # Close the connection
         cursor.close()

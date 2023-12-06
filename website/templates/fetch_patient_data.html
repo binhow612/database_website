@@ -16,41 +16,77 @@
       <h1>Fetch Patient Data</h1>
     </header>
     <form id="patientForm" action="#" method="post">
+      <select id="dropdown" name="patient_type" required>
+        <option value="" disabled selected hidden>
+          Select type of patient
+        </option>
+        <option value="OP">OP</option>
+        <option value="IP">IP</option>
+      </select>
       <label for="code">Enter Patient Code:</label>
       <input type="text" id="code" name="code" required />
       <button type="submit">Submit</button>
     </form>
     <!-- <pre> -->
-    {% if message %}
+    <!-- </pre> -->
+    {% if message %} {% if (message[0]['patient_type'] == 'OP')%}
     <table style="margin: 0px auto">
       <tr>
-        <!-- <th>Code</th>-->
-        <th>Pat type</th>
-        <th>Fname</th>
-        <th>Lname</th>
-        <!-- <th>DOB</th> -->
-        <!-- <th>Gender</th> -->
-        <!-- <th>Address</th> -->
+        <th>Name</th>
         <th>Phone num</th>
         <th>Doc Code</th>
-        <th>Outpat Code</th>
-        <th>Treatment no</th>
-        <th>Time</th>
-        <th>Date</th>
-        <th>Next Date</th>
+        <th>Exami_no</th>
+        <th>Exami_series_no</th>
+        <th>Treat time</th>
+        <th>Treat_date</th>
+        <th>Next_date</th>
         <th>Fee</th>
         <th>Diagnosis</th>
       </tr>
 
+      {% for value in message %}
       <tr>
-        {% for key, value in message.items() %}
-        <td>{{ value }}</td>
-        {% endfor %}
+        <td>{{ value['fname'] }} {{ value['lname'] }}</td>
+        <td>{{ value['phone_number'] }}</td>
+        <td>{{ value['doc_code'] }}</td>
+        <td>{{ value['exami_no'] }}</td>
+        <td>{{ value['exami_series_no'] }}</td>
+        <td>{{ value['treat_time'] }}</td>
+        <td>{{ value['treat_date'] }}</td>
+        <td>{{ value['next_date'] }}</td>
+        <td>{{ value['fee'] }}</td>
+        <td>{{ value['diagnosis'] }}</td>
       </tr>
+      {% endfor %}
     </table>
-    {% else %} {{ message }} {% endif %}
-    <!-- </pre> -->
+    {% else %} {% if (message[0]['patient_type'] == 'IP')%}
+    <table style="margin: 0px auto">
+      <tr>
+        <th>Name</th>
+        <th>Phone num</th>
+        <th>Doc Code</th>
+        <th>Treatment_no</th>
+        <th>Record_no</th>
+        <th>Start_date</th>
+        <th>End_date</th>
+        <th>Result</th>
+      </tr>
 
+      {% for value in message %}
+      <tr>
+        <td>{{ value['fname'] }} {{ value['lname'] }}</td>
+        <td>{{ value['phone_number'] }}</td>
+        <td>{{ value['doc_code'] }}</td>
+        <td>{{ value['treatment_no'] }}</td>
+        <td>{{ value['record_no'] }}</td>
+        <td>{{ value['start_date'] }}</td>
+        <td>{{ value['end_date'] }}</td>
+        <td>{{ value['result'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %} {{message}} {% endif %} {% endif %} {% else %} {{ message }} {%
+    endif %}
     <footer>
       <p>&copy; 2023 Database Website</p>
     </footer>

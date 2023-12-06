@@ -20,7 +20,7 @@ def login_route(message=None):
             global password
             username = data['username']
             password = data['password']
-            db = mysql.connector.connect(user=username, password=password, host="localhost", database="an_hospital")
+            db = mysql.connector.connect(user=username, password=password, host="localhost", database="hospital")
 
             cursor = db.cursor()
 
@@ -50,14 +50,17 @@ def fetch_patient_route():
         try:
             data = request.form
             code = data['code']
+            type = data['patient_type']
             # Call the main function in fetch_data.py
-            result = fetch_data.fetch_data(username, password ,code, type="P")
+            # result = fetch_data.fetch_data(username, password ,code, type="P")
+            result = fetch_data.fetch_patient_data(username, password ,code, type)
             if result == "Error 1":
                 message = f"Error 1: No patient found with code {code}"
             elif result == "Error 2":
                 message = f"Invalid patient type for patient with code {code}"
             else:
-                message = {f'{key}':f'{value}' for key, value in result.items()}
+                # message = {f'{key}':f'{value}' for key, value in result.items()}
+                message = result
             return render_template("fetch_patient_data.html", message=message)
 
         except Exception as e:

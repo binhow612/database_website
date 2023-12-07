@@ -1,137 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fetch Payment Information</title>
-    
+
     <!-- Linking CSS file using url_for -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Fetch Payment Information</h1>
+      <h1>Fetch Payment Information</h1>
     </header>
     <nav>
-        <ul>
-            <li><a href="#" id="button1">Home</a></li>
-        </ul>
+      <ul>
+        <li><a href="#" id="button1">Home</a></li>
+      </ul>
     </nav>
 
     <form id="paymentForm" action="#" method="post">
-        <select id="dropdown" name="patient_type" required>
-            <option value="" disabled selected hidden>Select type of patient</option>
-            <option value="OP">OP</option>
-            <option value="IP">IP</option>
-        <label for="code">Enter Patient Code:</label>
-        <input type="text" id="code" name="code" required />
-        <button type="submit">Submit</button>
+      <select id="dropdown" name="patient_type" required>
+        <option value="" disabled selected hidden>
+          Select type of patient
+        </option>
+        <option value="OP">OP</option>
+        <option value="IP">IP</option>
+      </select>
+      <label for="code">Enter Patient Code:</label>
+      <input type="text" id="code" name="code" required />
+      <button type="submit">Submit</button>
     </form>
-
     {% if message1 and message3 == 'IP' or message3 == 'OP'%}
-        <h3>Patient info</h3>
-        <table style="margin: 0px auto">
-            <tr>
-                <th>Patient Name</th>
-                <th>Date of birth</th>
-                <th>Gender</th>
-                <th>Address</th>
-                <th>Phone number</th>
-            </tr>
+    <h3>Patient info</h3>
+    <table style="margin: 0px auto">
+      <tr>
+        <th>Patient Name</th>
+        <th>Date of birth</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Phone number</th>
+      </tr>
 
-            {% for value in message1 %}
-                <tr>
-                    <td>{{ value['fname'] }} {{ value['lname'] }}</td>
-                    <td>{{ value['dob'] }}</td>
-                    <td>{{ value['gender'] }}</td>
-                    <td>{{ value['address'] }}</td>
-                    <td>{{ value['phone_number'] }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        {% if message3 == 'IP' %}
+      {% for value in message1 %}
+      <tr>
+        <td>{{ value['fname'] }} {{ value['lname'] }}</td>
+        <td>{{ value['dob'] }}</td>
+        <td>{{ value['gender'] }}</td>
+        <td>{{ value['address'] }}</td>
+        <td>{{ value['phone_number'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% if message3 == 'IP' %}
 
-        <h3>Payment info</h3>
-        <table style="margin: 0px auto">
-            <tr>
-                <th>Doctor Name</th>
-                <th>Visit</th>
-                <th>Admit Date</th>
-                <th>Dis date</th>
-                <th>Fee</th>
-                <th>Treat No</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Num Med</th>
-                <th>Med Name</th>
-                <th>Med Price</th>
-                <th>Total Med Price</th>
-            </tr>
+    <h3>Payment info</h3>
+    <table style="margin: 0px auto">
+      <tr>
+        <th>Doctor Name</th>
+        <th>Visit</th>
+        <th>Admit Date</th>
+        <th>Dis date</th>
+        <th>Fee</th>
+        <th>Treat No</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Num Med</th>
+        <th>Med Name</th>
+        <th>Med Price</th>
+        <th>Total Med Price</th>
+      </tr>
 
-            {% for value in message2 %}
-                <tr>
-                    <td>{{ value['docFname'] }} {{ value['docLname'] }}</td>
-                    <td>{{ value['visit'] }}</td>
-                    <td>{{ value['admitDate'] }}</td>
-                    <td>{{ value['disDate'] }}</td>
-                    <td>{{ value['fee'] }}</td>
-                    <td>{{ value['treatNo'] }}</td>
-                    <td>{{ value['startDate'] }}</td>
-                    <td>{{ value['endDate'] }}</td>
-                    <td>{{ value['numMed'] }}</td>
-                    <td>{{ value['medName'] }}</td>
-                    <td>{{ value['medPrice'] }}</td>
-                    <td>{{ value['cal_med_price'] }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        {% else %} 
-
-        <h3>Payment info</h3>
-        <table style="margin: 0px auto">
-            <tr>
-                <th>Doctor Name</th>
-                <th>Visit</th>
-                <th>Examine No</th>
-                <th>Treat Time</th>
-                <th>Treat Date</th>
-                <th>Next Treat date</th>
-                <th>Fee</th>
-                <th>Num Med</th>
-                <th>Med Name</th>
-                <th>Med Price</th>
-                <th>Total Med Price</th>
-            </tr>
-
-            {% for value in message2 %}
-                <tr>
-                    <td>{{ value['docFname'] }} {{ value['docLname'] }}</td>
-                    <td>{{ value['visit'] }}</td>
-                    <td>{{ value['examineNo'] }}</td>
-                    <td>{{ value['treatTime'] }}</td>
-                    <td>{{ value['treatDate'] }}</td>
-                    <td>{{ value['nextTreat'] }}</td>
-                    <td>{{ value['fee'] }}</td>
-                    <td>{{ value['numMed'] }}</td>
-                    <td>{{ value['medName'] }}</td>
-                    <td>{{ value['medPrice'] }}</td>
-                    <td>{{ value['cal_med_price'] }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        {% endif %}
+      {% for value in message2 %}
+      <tr>
+        <td>{{ value['docFname'] }} {{ value['docLname'] }}</td>
+        <td>{{ value['visit'] }}</td>
+        <td>{{ value['admitDate'] }}</td>
+        <td>{{ value['disDate'] }}</td>
+        <td>{{ value['fee'] }}</td>
+        <td>{{ value['treatNo'] }}</td>
+        <td>{{ value['startDate'] }}</td>
+        <td>{{ value['endDate'] }}</td>
+        <td>{{ value['numMed'] }}</td>
+        <td>{{ value['medName'] }}</td>
+        <td>{{ value['medPrice'] }}</td>
+        <td>{{ value['cal_med_price'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
     {% else %}
-        {{ message1 }}
-    {% endif %}
+
+    <h3>Payment info</h3>
+    <table style="margin: 0px auto">
+      <tr>
+        <th>Doctor Name</th>
+        <th>Series</th>
+        <th>Examine No</th>
+        <th>Examine Time</th>
+        <th>Exanine Date</th>
+        <th>Next Treat date</th>
+        <th>Fee</th>
+        <th>Num Med</th>
+        <th>Med Name</th>
+        <th>Med Price</th>
+        <th>Total Med Price</th>
+      </tr>
+
+      {% for value in message2 %}
+      <tr>
+        <td>{{ value['docFname'] }} {{ value['docLname'] }}</td>
+        <td>{{ value['visit'] }}</td>
+        <td>{{ value['examineNo'] }}</td>
+        <td>{{ value['treatTime'] }}</td>
+        <td>{{ value['treatDate'] }}</td>
+        <td>{{ value['nextTreat'] }}</td>
+        <td>{{ value['fee'] }}</td>
+        <td>{{ value['numMed'] }}</td>
+        <td>{{ value['medName'] }}</td>
+        <td>{{ value['medPrice'] }}</td>
+        <td>{{ value['cal_med_price'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %} {% else %} {{ message1 }} {% endif %}
 
     <footer>
-        <p>&copy; 2023 Database Website</p>
+      <p>&copy; 2023 Database Website</p>
     </footer>
 
     <script>
-        document.getElementById("button1").addEventListener("click", function () {
-            window.location.href = "homepage";
-        });
+      document.getElementById("button1").addEventListener("click", function () {
+        window.location.href = "homepage";
+      });
     </script>
-</body>
+  </body>
 </html>

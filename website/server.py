@@ -131,7 +131,7 @@ def fetch_payment_route():
         except Exception as e:
             return render_template("fetch_payment.html", message1=f'Error 2: {str(e)}', message2='', message3 = '')
     # For GET requests, simply render the page
-    return render_template("fetch_payment.html", message1='', message2 = '', message3 = '' )
+    return render_template("fetch_payment.html", message1='', message2 = '', message3 = '')
     
 @app.route('/docLogin', methods = ['GET', 'POST'])
 def doc_Login_route():

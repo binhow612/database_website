@@ -26,7 +26,8 @@
       <button type="submit">Submit</button>
     </form>
 
-    {% if message1 and (message1[0]['patient_type'] == 'IP') %}
+    {% if message1 and ((message1[0]['patient_type'] == 'IP') and
+    (message1[0]['patient_type'] != 'NA')) %}
     <h3 style="margin-left: 100px">Inpatient table</h3>
     <table style="margin: 0px auto">
       <tr>
@@ -59,8 +60,10 @@
       </tr>
       {% endfor %}
     </table>
-    {% else %} {{ message1 }} {% endif %} {% if message2 %}
-
+    {% else %} {% if message1 and (message1[0]['patient_type'] != 'NA') %} {{
+    message1 }} {% else %} {% endif %} {% endif %} {% if message2 and
+    ((message2[0]['patient_type'] == 'OP') and (message2[0]['patient_type'] !=
+    'NA')) %}
     <h3 style="margin-left: 100px">Outpatient table</h3>
     <table style="margin: 0px auto">
       <tr>
@@ -87,15 +90,16 @@
         <td>{{ value['address'] }}</td>
         <td>{{ value['exami_no'] }}</td>
         <td>{{ value['exami_series_no'] }}</td>
-        <td>{{ value['treat_time'] }}</td>
-        <td>{{ value['treat_date'] }}</td>
+        <td>{{ value['exami_time'] }}</td>
+        <td>{{ value['exami_date'] }}</td>
         <td>{{ value['next_date'] }}</td>
         <td>{{ value['fee'] }}</td>
         <td>{{ value['diagnosis'] }}</td>
       </tr>
       {% endfor %}
     </table>
-    {% else %} {{ message2 }} {% endif %}
+    {% else %} {% if message2 and (message2[0]['patient_type'] != 'NA') %} {{
+    message2 }} {% else %} {% endif %} {% endif %}
 
     <footer>
       <p>&copy; 2023 Database Website</p>

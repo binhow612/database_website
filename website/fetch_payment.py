@@ -83,8 +83,8 @@ def fetch_payment2(username, password, code, type):
             query2 = '''select 	
                         a.exami_no as examineNo,
                         a.exami_series_no as visit,
-                        a.treat_time as treatTime,
-                        a.treat_date as treatDate,
+                        a.exami_time as treatTime,
+                        a.exami_date as treatDate,
                         a.next_date as nextTreat,
                         a.fee as fee,
                         b.fname as docFname,
@@ -98,7 +98,7 @@ def fetch_payment2(username, password, code, type):
                 join contain_out_detail c on a.outpat_code = c.outpat_code
                 join medication d on c.med_code = d.med_code
                 where a.outpat_code = %s
-                order by a.exami_series_no'''
+                order by a.exami_no'''
         elif (type=="IP"):
             query2 = '''select 	
                         d.fname as docFname,
@@ -132,7 +132,7 @@ def fetch_payment2(username, password, code, type):
 
     except Exception as e:
         print(f"Error: {e}")
-        return f"Error 1 : {e}"
+        return f"Error 1 : {e}", ""
 
     finally:
         # Close the cursor and connection

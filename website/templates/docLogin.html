@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Linking CSS file using url_for -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Login Page For Doctor</h1>
+    </header>
+    <nav>
+        <ul>
+          <li><a href="#" id="button1">Back</a></li>
+        </ul>
+      </nav>
+    <main>
+        <div class="center">
+            <form id="loginForm" action="#" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <br>
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <text></text> {{message}} </text>
+        <footer>
+            <p>&copy; 2023 Database Website</p>
+        </footer>
+        <script>
+            document.getElementById("button1").addEventListener("click", function () {
+              window.location.href = "/";
+            });
+        </script>
+</body>
+</html>

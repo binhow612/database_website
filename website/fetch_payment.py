@@ -97,7 +97,8 @@ def fetch_payment2(username, password, code, type):
                 join doctor b on a.doc_code = b.ecode
                 join contain_out_detail c on a.outpat_code = c.outpat_code
                 join medication d on c.med_code = d.med_code
-                where a.outpat_code = %s'''
+                where a.outpat_code = %s
+                order by a.exami_series_no'''
         elif (type=="IP"):
             query2 = '''select 	
                         d.fname as docFname,
@@ -118,7 +119,8 @@ def fetch_payment2(username, password, code, type):
                 join is_contained_in c on a.inpat_code = c.inpat_code
                 join doctor d on a.doc_code = d.ecode
                 join medication e on c.med_code = e.med_code
-                where a.inpat_code = %s''' 
+                where a.inpat_code = %s
+                order by b.record_no''' 
 
         cursor.execute(query1, (code,))
         result1 = cursor.fetchall()

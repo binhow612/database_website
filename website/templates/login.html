@@ -9,8 +9,13 @@
 </head>
 <body>
     <header>
-        <h1>Login Page</h1>
+        <h1>Login Page For Manager</h1>
     </header>
+    <nav>
+        <ul>
+          <li><a href="#" id="button1">Back</a></li>
+        </ul>
+      </nav>
     <main>
         <div class="center">
             <form id="loginForm" action="#" method="post">
@@ -29,5 +34,10 @@
         <footer>
             <p>&copy; 2023 Database Website</p>
         </footer>
+        <script>
+            document.getElementById("button1").addEventListener("click", function () {
+              window.location.href = "/";
+            });
+        </script>
 </body>
 </html>

@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Database Website</title>
     <!-- Linking CSS file using url_for -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Welcome to our Database Website</h1>
+      <h1>Welcome to our Database Website</h1>
     </header>
     <nav>
-        <ul>
-            <li><button type="button" onclick="redirectToLogin()">Log in</button></li>
-        </ul>
+      <ul>
+        <li>
+          <button type="button" onclick="redirectToLoginAsManager()">
+            Log in as Manager
+          </button>
+        </li>
+        <li>
+          <button type="button" onclick="redirectToLoginAsDoctor()">
+            Log in as Doctor
+          </button>
+        </li>
+      </ul>
     </nav>
     <main>
-        <p>This is the website of our team that will redirect you to our database.</p>
+      <p>
+        This is the website of our team that will redirect you to our database.
+      </p>
     </main>
     <footer>
-        <p>&copy; 2023 Database Website</p>
+      <p>&copy; 2023 Database Website</p>
     </footer>
 
     <script>
-        function redirectToLogin() {
-            window.location.href = 'login';
-        }
+      function redirectToLoginAsManager() {
+        window.location.href = "login";
+      }
+      function redirectToLoginAsDoctor() {
+        window.location.href = "docLogin";
+      }
     </script>
-</body>
+  </body>
 </html>

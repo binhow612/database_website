@@ -130,6 +130,62 @@ def fetch_payment_route():
     # For GET requests, simply render the page
     return render_template("fetch_payment.html", message1='', message2 = '', message3 = '' )
     
+@app.route('/docLogin', methods = ['GET', 'POST'])
+def doc_Login_route():
+        if request.method == "POST":
+            try:
+                data = request.form
+                global username
+                global password
+                username = data['username']
+                password = data['password']
+                db = mysql.connector.connect(user=username, password=password, host="localhost", database="hospital")
+
+                cursor = db.cursor()
+
+                # Execute a SELECT query to fetch the user's data
+                query = "SELECT * FROM patient"
+                cursor.execute(query)
+                # Fetch the first row (if any)
+                user_data = cursor.fetchall()
+
+                # Check if a matching user was found
+                if user_data:
+                    return redirect(url_for('doc_homepage_route'))
+
+            except Exception as e:
+            # return render_template("login.html", message=f'Error: {str(e)}')
+                return render_template("docLogin.html", message='Invalid username or password.')
+        return render_template("docLogin.html", message='')
+
+@app.route('/docHomepage', methods = ['GET', 'POST'])
+def doc_homepage_route():
+    return render_template("docHomepage.html")
+
+@app.route('/docViewPatient', methods = ['GET', 'POST'])
+def fetch_patient_route2():
+    if (request.method == 'POST'):
+        try:
+            data = request.form
+            code = data['code']
+            type = data['patient_type']
+            # Call the main function in fetch_data.py
+            # result = fetch_data.fetch_data(username, password ,code, type="P")
+            result = fetch_data.fetch_patient_data(username, password ,code, type)
+            if result == "Error 1":
+                message = f"Error 1: No patient found with code {code}"
+            elif result == "Error 2":
+                message = f"Invalid patient type for patient with code {code}"
+            else:
+                # message = {f'{key}':f'{value}' for key, value in result.items()}
+                message = result
+            return render_template("docFetchPatient.html", message=message)
+
+        except Exception as e:
+            return render_template("docFetchPatient.html", message=f'Error 3: {str(e)}')
+    # For GET requests, simply render the page
+    return render_template("docFetchPatient.html", message='')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

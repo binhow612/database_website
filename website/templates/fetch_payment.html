@@ -19,97 +19,109 @@
     </nav>
 
     <form id="paymentForm" action="#" method="post">
+        <select id="dropdown" name="patient_type" required>
+            <option value="" disabled selected hidden>Select type of patient</option>
+            <option value="OP">OP</option>
+            <option value="IP">IP</option>
         <label for="code">Enter Patient Code:</label>
         <input type="text" id="code" name="code" required />
         <button type="submit">Submit</button>
     </form>
 
-    {% if message %}
-        {% if message[0]['Patient_Type'] == 'OP' %}
-            <table style="margin: 0px auto">
-                <tr>
-                    <th>Patient Type</th>
-                    <th>Outpatient Code</th>
-                    <th>Examine No</th>
-                    <th>Examine Time</th>
-                    <th>Examine Date</th>
-                    <th>Next Appointment Date</th>
-                    <th>Examine Fee</th>
-                    <th>Doctor First Name</th>
-                    <th>Doctor Last Name</th>
-                    <th>Doctor Specialty</th>
-                    <th>Provider Name</th>
-                    <th>Provider Address</th>
-                    <th>Provider Phone</th>
-                    <th>Payment Date</th>
-                    <th>Payment Price</th>
-                    <th>Outpatient Diagnosis</th>
-                </tr>
+    {% if message1 and message3 == 'IP' or message3 == 'OP'%}
+        <h3>Patient info</h3>
+        <table style="margin: 0px auto">
+            <tr>
+                <th>Patient Name</th>
+                <th>Date of birth</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Phone number</th>
+            </tr>
 
-                {% for value in message %}
-                    <tr>
-                        <td>{{ value['Patient_Type'] }}</td>
-                        <td>{{ value['Outpatient_Code'] }}</td>
-                        <td>{{ value['Treatment_No'] }}</td>
-                        <td>{{ value['Treatment_Time'] }}</td>
-                        <td>{{ value['Treatment_Date'] }}</td>
-                        <td>{{ value['Next_Appointment_Date'] }}</td>
-                        <td>{{ value['Treatment_Fee'] }}</td>
-                        <td>{{ value['Doctor_FirstName'] }}</td>
-                        <td>{{ value['Doctor_LastName'] }}</td>
-                        <td>{{ value['Doctor_Specialty'] }}</td>
-                        <td>{{ value['Provider_Name'] }}</td>
-                        <td>{{ value['Provider_Address'] }}</td>
-                        <td>{{ value['Provider_Phone'] }}</td>
-                        <td>{{ value['Payment_Date'] }}</td>
-                        <td>{{ value['Payment_Price'] }}</td>
-                        <td>{{ value['Outpatient_Diagnosis'] }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% elif message[0]['Patient_Type'] == 'IP' %}
-            <table style="margin: 0px auto">
+            {% for value in message1 %}
                 <tr>
-                    <th>Patient Type</th>
-                    <th>Inpatient Code</th>
-                    <th>Treatment Result</th>
-                    <th>Treatment Start Date</th>
-                    <th>Treatment End Date</th>
-                    <th>Inpatient Record No</th>
-                    <th>Doctor First Name</th>
-                    <th>Doctor Last Name</th>
-                    <th>Doctor Specialty</th>
-                    <th>Provider Name</th>
-                    <th>Provider Address</th>
-                    <th>Provider Phone</th>
-                    <th>Payment Date</th>
-                    <th>Payment Price</th>
+                    <td>{{ value['fname'] }} {{ value['lname'] }}</td>
+                    <td>{{ value['dob'] }}</td>
+                    <td>{{ value['gender'] }}</td>
+                    <td>{{ value['address'] }}</td>
+                    <td>{{ value['phone_number'] }}</td>
                 </tr>
+            {% endfor %}
+        </table>
+        {% if message3 == 'IP' %}
 
-                {% for value in message %}
-                    <tr>
-                        <td>{{ value['Patient_Type'] }}</td>
-                        <td>{{ value['Inpatient_Code'] }}</td>
-                        <td>{{ value['Treatment_Result'] }}</td>
-                        <td>{{ value['Treatment_Start_Date'] }}</td>
-                        <td>{{ value['Treatment_End_Date'] }}</td>
-                        <td>{{ value['Inpatient_Record_No'] }}</td>
-                        <td>{{ value['Doctor_FirstName'] }}</td>
-                        <td>{{ value['Doctor_LastName'] }}</td>
-                        <td>{{ value['Doctor_Specialty'] }}</td>
-                        <td>{{ value['Provider_Name'] }}</td>
-                        <td>{{ value['Provider_Address'] }}</td>
-                        <td>{{ value['Provider_Phone'] }}</td>
-                        <td>{{ value['Payment_Date'] }}</td>
-                        <td>{{ value['Payment_Price'] }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            {{ message }}
+        <h3>Payment info</h3>
+        <table style="margin: 0px auto">
+            <tr>
+                <th>Doctor Name</th>
+                <th>Visit</th>
+                <th>Admit Date</th>
+                <th>Dis date</th>
+                <th>Fee</th>
+                <th>Treat No</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Num Med</th>
+                <th>Med Name</th>
+                <th>Med Price</th>
+                <th>Total Med Price</th>
+            </tr>
+
+            {% for value in message2 %}
+                <tr>
+                    <td>{{ value['docFname'] }} {{ value['docLname'] }}</td>
+                    <td>{{ value['visit'] }}</td>
+                    <td>{{ value['admitDate'] }}</td>
+                    <td>{{ value['disDate'] }}</td>
+                    <td>{{ value['fee'] }}</td>
+                    <td>{{ value['treatNo'] }}</td>
+                    <td>{{ value['startDate'] }}</td>
+                    <td>{{ value['endDate'] }}</td>
+                    <td>{{ value['numMed'] }}</td>
+                    <td>{{ value['medName'] }}</td>
+                    <td>{{ value['medPrice'] }}</td>
+                    <td>{{ value['cal_med_price'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %} 
+
+        <h3>Payment info</h3>
+        <table style="margin: 0px auto">
+            <tr>
+                <th>Doctor Name</th>
+                <th>Visit</th>
+                <th>Examine No</th>
+                <th>Treat Time</th>
+                <th>Treat Date</th>
+                <th>Next Treat date</th>
+                <th>Fee</th>
+                <th>Num Med</th>
+                <th>Med Name</th>
+                <th>Med Price</th>
+                <th>Total Med Price</th>
+            </tr>
+
+            {% for value in message2 %}
+                <tr>
+                    <td>{{ value['docFname'] }} {{ value['docLname'] }}</td>
+                    <td>{{ value['visit'] }}</td>
+                    <td>{{ value['examineNo'] }}</td>
+                    <td>{{ value['treatTime'] }}</td>
+                    <td>{{ value['treatDate'] }}</td>
+                    <td>{{ value['nextTreat'] }}</td>
+                    <td>{{ value['fee'] }}</td>
+                    <td>{{ value['numMed'] }}</td>
+                    <td>{{ value['medName'] }}</td>
+                    <td>{{ value['medPrice'] }}</td>
+                    <td>{{ value['cal_med_price'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
         {% endif %}
     {% else %}
-        {{ message }}
+        {{ message1 }}
     {% endif %}
 
     <footer>

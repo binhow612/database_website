@@ -116,17 +116,19 @@ def fetch_payment_route():
     if (request.method == 'POST'):
         try:
             code = request.form['code']
+            type = request.form['patient_type']
             # Call the main function in add_patient.py
-            result = fetch_payment.fetch_payment(username, password, code)
+            # result = fetch_payment.fetch_payment(username, password, code)
+            result1, result2 = fetch_payment.fetch_payment2(username, password, code, type)
                         
-            if not result:
-                return render_template("fetch_payment.html", message=f"There is no payment information for the patient {code}!")
+            if not result1:
+                return render_template("fetch_payment.html", message1=f"There is no payment information for the patient {code}!", message2 = '', message3 = '')
             
-            return render_template("fetch_payment.html", message=result)
+            return render_template("fetch_payment.html", message1=result1, message2=result2, message3 = type)
         except Exception as e:
-            return render_template("fetch_payment.html", message=f"Error 2: {e}")
+            return render_template("fetch_payment.html", message1=f'Error 2: {str(e)}', message2='', message3 = '')
     # For GET requests, simply render the page
-    return render_template("fetch_payment.html", message='')
+    return render_template("fetch_payment.html", message1='', message2 = '', message3 = '' )
     
 
 if __name__ == '__main__':

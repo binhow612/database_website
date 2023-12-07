@@ -68,3 +68,73 @@ def fetch_payment(username, password, code):
         cursor.close()
         db.close()
 
+def fetch_payment2(username, password, code, type):
+    # Establish the connection
+    db = mysql.connector.connect(user=username, password=password, host="localhost", database="hospital")
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        query1 = '''select * from patient 
+                        where p_code = %s'''
+        # Execute the SQL query to fetch payment information
+        if (type=="OP"):
+            query2 = '''select 	
+                        a.exami_no as examineNo,
+                        a.exami_series_no as visit,
+                        a.treat_time as treatTime,
+                        a.treat_date as treatDate,
+                        a.next_date as nextTreat,
+                        a.fee as fee,
+                        b.fname as docFname,
+                        b.lname as docLname,
+                        c.num_med as numMed,
+                        d.med_name as medName,
+                        d.price as medPrice,
+                        c.num_med*d.price as cal_med_price
+                from out_detail a
+                join doctor b on a.doc_code = b.ecode
+                join contain_out_detail c on a.outpat_code = c.outpat_code
+                join medication d on c.med_code = d.med_code
+                where a.outpat_code = %s'''
+        elif (type=="IP"):
+            query2 = '''select 	
+                        d.fname as docFname,
+                        d.lname as docLname,
+                        b.record_no as visit,
+                        b.admission_date as admitDate,
+                        b.discharge_date as disDate,
+                        b.fee as fee,
+                        c.treatment_no as treatNo,
+                        a.start_date as startDate,
+                        a.end_date as endDate,
+                        c.num_med as numMed,
+                        e.med_name as medName,
+                        e.price as medPrice,
+                        c.num_med * e.price as cal_med_price
+                from in_detail a
+                join inpatient_record b on a.inpat_code = b.in_code
+                join is_contained_in c on a.inpat_code = c.inpat_code
+                join doctor d on a.doc_code = d.ecode
+                join medication e on c.med_code = e.med_code
+                where a.inpat_code = %s''' 
+
+        cursor.execute(query1, (code,))
+        result1 = cursor.fetchall()
+
+        cursor.execute(query2, (code,))
+        result2 = cursor.fetchall()
+        # Return the result
+        return result1, result2
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return f"Error 1 : {e}"
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        db.close()
+
+    

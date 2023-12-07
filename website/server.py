@@ -74,7 +74,6 @@ def fetch_patient_route():
     # For GET requests, simply render the page
     return render_template("fetch_patient_data.html", message='')
 
-
 @app.route('/fetch_doctor', methods = ['GET', 'POST'])
 def fetch_doctor_route():
     if (request.method == 'POST'):
@@ -99,7 +98,6 @@ def fetch_doctor_route():
             return render_template("fetch_doctor_data.html", message1=f'Error 1: {str(e)}', message2='')
     # For GET requests, simply render the page
     return render_template("fetch_doctor_data.html", message1='', message2 = '')
-
 
 @app.route('/add_data', methods = ['GET', 'POST'])
 def add_data_route():
@@ -184,7 +182,6 @@ def fetch_patient_route2():
 
     except Exception as e:
         return render_template("docFetchPatient.html", message1=f'Error 1: {str(e)}', message2='')
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

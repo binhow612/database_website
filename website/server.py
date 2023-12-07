@@ -7,6 +7,12 @@ import mysql.connector
 app = Flask(__name__)
 username = None
 password = None
+# doctor list for login
+doctor_list = {
+    "D00001": "00001",
+    "D00002": "00002",
+    "D00003": "00003",
+}
 
 @app.route('/')
 def index():
@@ -110,7 +116,6 @@ def add_data_route():
     # For GET requests, simply render the page
     return render_template("add_patient.html", message='')
 
-
 @app.route('/fetch_payment', methods = ['GET', 'POST'])
 def fetch_payment_route():
     if (request.method == 'POST'):
@@ -164,27 +169,21 @@ def doc_homepage_route():
 
 @app.route('/docViewPatient', methods = ['GET', 'POST'])
 def fetch_patient_route2():
-    if (request.method == 'POST'):
-        try:
-            data = request.form
-            code = data['code']
-            type = data['patient_type']
-            # Call the main function in fetch_data.py
-            # result = fetch_data.fetch_data(username, password ,code, type="P")
-            result = fetch_data.fetch_patient_data(username, password ,code, type)
-            if result == "Error 1":
-                message = f"Error 1: No patient found with code {code}"
-            elif result == "Error 2":
-                message = f"Invalid patient type for patient with code {code}"
-            else:
-                # message = {f'{key}':f'{value}' for key, value in result.items()}
-                message = result
-            return render_template("docFetchPatient.html", message=message)
+    try:
+        code = doctor_list[username]
+        message1 = ''
+        message2 = ''
+        result1, result2 = fetch_data.fetch_doctor_data2(username, password ,code)
+        if not result1 and not result2:
+            message1 = f"There is no patients treated or examined by this doctor!"
+        else:
+            message1 = result1
+            message2 = result2
+            
+        return render_template("docFetchPatient.html", message1=message1, message2=message2)
 
-        except Exception as e:
-            return render_template("docFetchPatient.html", message=f'Error 3: {str(e)}')
-    # For GET requests, simply render the page
-    return render_template("docFetchPatient.html", message='')
+    except Exception as e:
+        return render_template("docFetchPatient.html", message1=f'Error 1: {str(e)}', message2='')
 
 
 if __name__ == '__main__':

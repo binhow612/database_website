@@ -86,9 +86,9 @@ def fetch_patient_data(username, password, code, type):
     cursor = db.cursor(dictionary=True)
     try:
         if (type=="OP"):
-            cursor.execute("SELECT * FROM patient join out_detail on patient.p_code = out_detail.outpat_code where p_code = %s", (code,))
+            cursor.execute("SELECT * FROM patient left join out_detail on patient.p_code = out_detail.outpat_code where p_code = %s and patient.patient_type = 'OP'", (code,))
         elif (type=="IP"):
-            cursor.execute("select * from patient join in_detail on patient.p_code = in_detail.inpat_code join inpatient_record on patient.p_code = inpatient_record.in_code where p_code = %s", (code,))
+            cursor.execute("select * from patient left join in_detail on patient.p_code = in_detail.inpat_code left join inpatient_record on patient.p_code = inpatient_record.in_code where p_code = %s and patient.patient_type = 'IP'", (code,))
         else:
             return "Error 2"
         patient_info = cursor.fetchall()

@@ -57,9 +57,10 @@ def fetch_patient_route():
             data = request.form
             code = data['code']
             type = data['patient_type']
+            fname = data['fname']
             # Call the main function in fetch_data.py
             # result = fetch_data.fetch_data(username, password ,code, type="P")
-            result = fetch_data.fetch_patient_data(username, password ,code, type)
+            result = fetch_data.fetch_patient_data(username, password ,code, type, fname)
             if result == "Error 1":
                 message = f"Error 1: No patient found with code {code}"
             elif result == "Error 2":

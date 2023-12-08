@@ -8,7 +8,7 @@ body {
 }
 
 header {
-  background-color: rgb(13, 119, 114);
+  background-color: rgb(0, 255, 242);
   color: white;
   text-align: center;
   padding: 1em;
@@ -29,7 +29,7 @@ header h1::after {
 h1 {
   display: inline-block;
   font-size: 2.5em; /* Adjust the font size as needed */
-  color: white;
+  color: black;
 }
 
 p {
@@ -64,8 +64,11 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.7s ease;
 }
-
+button:active {
+  transform: scale(0.9);
+}
 button:hover {
   background-color: #45a049;
 }
@@ -83,6 +86,11 @@ nav ul {
 nav li {
   display: inline-block;
   margin-right: 15px;
+  transition: all 1s ease;
+}
+
+nav li:active {
+  transform: scale(0.8);
 }
 
 nav a {
@@ -115,7 +123,7 @@ input {
 
 select {
   margin-bottom: 10px;
-  padding: 5px 142px;
+  padding: 5px 110px;
   background-color: white;
   border-color: black;
   border-radius: 5px;
@@ -146,4 +154,28 @@ form {
   padding: 20px;
   border-radius: 10px;
   border-width: 10px;
+}
+
+input[type="date"] {
+  padding: 5px 128px;
+}
+
+/* Define a keyframes animation */
+@keyframes travel {
+  from {
+    transform: translateX(120%); /* Start from the left of the screen */
+  }
+  to {
+    transform: translateX(-100%); /* End at the right of the screen */
+  }
+}
+
+/* Apply the animation to the message */
+.traveling-message {
+  position: absolute; /* Position the element absolutely */
+  top: 50%; /* Center vertically */
+  left: 0; /* Start from the left edge of the screen */
+  white-space: nowrap; /* Prevent text from wrapping */
+  animation: travel 12s linear infinite; /* Adjust duration as needed */
+  font-size: xx-large;
 }
